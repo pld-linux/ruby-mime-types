@@ -5,7 +5,7 @@ Version:	1.13.1
 Release:	1
 License:	Ruby's, Artistic or GPLv2+
 Group:		Development/Languages
-Source0:	http://raa.ruby-lang.org/cache/mime-types/mime-types-1.13.1.tar.gz
+Source0:	http://raa.ruby-lang.org/cache/mime-types/mime-types-%{version}.tar.gz
 # Source0-md5:	49fb7abf6730ebae1e32fc2d8ccc928e
 URL:		http://raa.ruby-lang.org/project/mime-types/
 BuildRequires:	rpmbuild(macros) >= 1.277
