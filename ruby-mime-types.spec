@@ -1,4 +1,5 @@
 Summary:	MIME::Types for Ruby
+Summary(pl):	MIME::Types dla jêzyka Ruby
 Name:		ruby-mime-types
 Version:	1.13.1
 Release:	1
@@ -13,9 +14,18 @@ BuildRequires:	setup.rb = 3.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-MIME::Types provides the ability for detailed information about MIME entities to be determined and used programmatically.
+MIME::Types provides the ability for detailed information about MIME
+entities to be determined and used programmatically.
 
-This is largely based on Perl MIME::Types 1.13. Please see the main documentation for more information.
+This is largely based on Perl MIME::Types 1.13. Please see the main
+documentation for more information.
+
+%description -l pl
+MIME::Types pozwala na programowe okre¶lanie i wykorzystywanie
+szczegó³owych informacji o elementach MIME.
+
+Modu³ ten jest w du¿ej czê¶ci oparty na perlowym MIME::Types 1.13.
+Wiêcej informacji znajduje siê w g³ównej dokumentacji.
 
 %prep
 %setup -q -n mime-types-%{version}
