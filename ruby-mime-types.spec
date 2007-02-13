@@ -1,5 +1,5 @@
 Summary:	MIME::Types for Ruby
-Summary(pl.UTF-8):   MIME::Types dla języka Ruby
+Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-mime-types
 Version:	1.13.1
 Release:	1
