@@ -9,7 +9,7 @@ Source0:	http://raa.ruby-lang.org/cache/mime-types/mime-types-%{version}.tar.gz
 # Source0-md5:	49fb7abf6730ebae1e32fc2d8ccc928e
 URL:		http://raa.ruby-lang.org/project/mime-types/
 BuildRequires:	rpmbuild(macros) >= 1.277
-BuildRequires:	setup.rb = 3.3.1
+BuildRequires:	setup.rb >= 3.3.1
 #BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
