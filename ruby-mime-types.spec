@@ -27,9 +27,11 @@ This is largely based on Perl MIME::Types 1.13. Please see the main
 documentation for more information.
 
 %description -l hu.UTF-8
-MIME::Types egy felületet biztosít a MIME bejegyzések lekérdezéséhez és programozásához.
+MIME::Types egy felületet biztosít a MIME bejegyzések lekérdezéséhez
+és programozásához.
 
-Nagyban a Perl MIME::Types 1.13 az alapja a modulnak. A fő dokumentációban találsz több információt.
+Nagyban a Perl MIME::Types 1.13 az alapja a modulnak. A fő
+dokumentációban találsz több információt.
 
 %description -l pl.UTF-8
 MIME::Types pozwala na programowe określanie i wykorzystywanie
@@ -40,7 +42,8 @@ Więcej informacji znajduje się w głównej dokumentacji.
 
 %package rdoc
 Summary:	Documentation files for mime-types
-Summary(hu.UTF-8):  A mime-types dokumentációja
+Summary(hu.UTF-8):	A mime-types dokumentációja
+Summary(pl.UTF-8):	Pliki dokumentacji do mime-types
 Group:		Documentation
 Requires:	ruby >= 1:1.8.7-4
 
@@ -49,6 +52,9 @@ Documentation files for mime-types.
 
 %description rdoc -l hu.UTF-8
 A mime-types dokumentációja.
+
+%description rdoc -l pl.UTF-8
+Pliki dokumentacji do mime-types.
 
 %prep
 %setup -q -n mime-types-%{version}
