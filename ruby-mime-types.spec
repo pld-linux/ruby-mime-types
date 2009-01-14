@@ -1,3 +1,5 @@
+# TODO:
+# - MIME subdir in ri
 Summary:	MIME::Types for Ruby
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-mime-types
@@ -13,6 +15,9 @@ BuildRequires:	setup.rb >= 3.3.1
 #BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+# nothing to be placed there. we're not noarch only because of ruby packaging
+%define		_enable_debug_packages	0
+
 %description
 MIME::Types provides the ability for detailed information about MIME
 entities to be determined and used programmatically.
@@ -27,6 +32,14 @@ szczegółowych informacji o elementach MIME.
 Moduł ten jest w dużej części oparty na perlowym MIME::Types 1.13.
 Więcej informacji znajduje się w głównej dokumentacji.
 
+%package rdoc
+Summary:	Documentation files for mime-types
+Group:		Documentation
+Requires:	ruby >= 1:1.8.7-4
+
+%description rdoc
+Documentation files for mime-types.
+
 %prep
 %setup -q -n mime-types-%{version}
 cp %{_datadir}/setup.rb .
@@ -40,21 +53,31 @@ ruby setup.rb setup
 
 rdoc --op rdoc lib
 rdoc --ri --op ri lib
+rm -f ri/created.rid
+rm -rf ri/MIME/InvalidContentType
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_archdir},%{ruby_ridir}}
+install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
 
 ruby setup.rb install \
 	--prefix=$RPM_BUILD_ROOT
 
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
+cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc rdoc
-%{ruby_rubylibdir}/*
-%{ruby_ridir}/*
+%{ruby_rubylibdir}/mime/type.rb
+%{ruby_rubylibdir}/mime/types.rb
+
+%files rdoc
+%defattr(644,root,root,755)
+%{ruby_rdocdir}/%{name}-%{version}
+%dir %{ruby_ridir}/MIME
+%{ruby_ridir}/MIME/*.yaml
+%{ruby_ridir}/MIME/Type
+%{ruby_ridir}/MIME/Types
