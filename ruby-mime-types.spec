@@ -1,6 +1,7 @@
 # TODO:
 # - MIME subdir in ri
 Summary:	MIME::Types for Ruby
+Summary(hu.UTF-8):	MIME::Types Rubyhoz
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-mime-types
 Version:	1.13.1
@@ -25,6 +26,11 @@ entities to be determined and used programmatically.
 This is largely based on Perl MIME::Types 1.13. Please see the main
 documentation for more information.
 
+%description -l hu.UTF-8
+MIME::Types egy felületet biztosít a MIME bejegyzések lekérdezéséhez és programozásához.
+
+Nagyban a Perl MIME::Types 1.13 az alapja a modulnak. A fő dokumentációban találsz több információt.
+
 %description -l pl.UTF-8
 MIME::Types pozwala na programowe określanie i wykorzystywanie
 szczegółowych informacji o elementach MIME.
@@ -34,11 +40,15 @@ Więcej informacji znajduje się w głównej dokumentacji.
 
 %package rdoc
 Summary:	Documentation files for mime-types
+Summary(hu.UTF-8):  A mime-types dokumentációja
 Group:		Documentation
 Requires:	ruby >= 1:1.8.7-4
 
 %description rdoc
 Documentation files for mime-types.
+
+%description rdoc -l hu.UTF-8
+A mime-types dokumentációja.
 
 %prep
 %setup -q -n mime-types-%{version}
