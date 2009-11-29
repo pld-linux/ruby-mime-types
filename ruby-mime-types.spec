@@ -4,12 +4,12 @@ Summary:	MIME::Types for Ruby
 Summary(hu.UTF-8):	MIME::Types Rubyhoz
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-mime-types
-Version:	1.13.1
-Release:	2
+Version:	1.16
+Release:	1
 License:	Ruby's, Artistic or GPLv2+
 Group:		Development/Languages
-Source0:	http://raa.ruby-lang.org/cache/mime-types/mime-types-%{version}.tar.gz
-# Source0-md5:	49fb7abf6730ebae1e32fc2d8ccc928e
+Source0:	http://rubyforge.org/frs/download.php/52549/mime-types-%{version}.tar.gz
+# Source0-md5:	70190fa0bd562f323449b151e7247333
 URL:		http://raa.ruby-lang.org/project/mime-types/
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	setup.rb >= 3.3.1
@@ -88,8 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %dir %{ruby_rubylibdir}/mime
-%{ruby_rubylibdir}/mime/type.rb
 %{ruby_rubylibdir}/mime/types.rb
+%{ruby_rubylibdir}/mime/types.rb.data
 
 %files rdoc
 %defattr(644,root,root,755)
