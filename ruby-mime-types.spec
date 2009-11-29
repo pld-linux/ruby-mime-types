@@ -5,7 +5,7 @@ Summary(hu.UTF-8):	MIME::Types Rubyhoz
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-mime-types
 Version:	1.13.1
-Release:	1
+Release:	2
 License:	Ruby's, Artistic or GPLv2+
 Group:		Development/Languages
 Source0:	http://raa.ruby-lang.org/cache/mime-types/mime-types-%{version}.tar.gz
@@ -87,6 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%dir %{ruby_rubylibdir}/mime
 %{ruby_rubylibdir}/mime/type.rb
 %{ruby_rubylibdir}/mime/types.rb
 
