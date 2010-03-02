@@ -1,18 +1,19 @@
-# TODO:
-# - MIME subdir in ri
+%define pkgname mime-types
 Summary:	MIME::Types for Ruby
 Summary(hu.UTF-8):	MIME::Types Rubyhoz
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
-Name:		ruby-mime-types
+Name:		ruby-%{pkgname}
 Version:	1.16
-Release:	1
+Release:	2
 License:	Ruby's, Artistic or GPLv2+
 Group:		Development/Languages
-Source0:	http://rubyforge.org/frs/download.php/52549/mime-types-%{version}.tar.gz
-# Source0-md5:	70190fa0bd562f323449b151e7247333
+Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
+# Source0-md5:	2c9b8568a76cc632578a292db4a71b9a
 URL:		http://raa.ruby-lang.org/project/mime-types/
-BuildRequires:	rpmbuild(macros) >= 1.277
-BuildRequires:	setup.rb >= 3.3.1
+BuildRequires:	rpmbuild(macros) >= 1.484
+BuildRequires:	ruby >= 1:1.8.6
+BuildRequires:	ruby-modules
+%{?ruby_mod_ver_requires_eq}
 #BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -41,44 +42,44 @@ Moduł ten jest w dużej części oparty na perlowym MIME::Types 1.13.
 Więcej informacji znajduje się w głównej dokumentacji.
 
 %package rdoc
-Summary:	Documentation files for mime-types
-Summary(hu.UTF-8):	A mime-types dokumentációja
-Summary(pl.UTF-8):	Pliki dokumentacji do mime-types
+Summary:	HTML documentation for %{pkgname}
+Summary(pl.UTF-8):	Dokumentacja w formacie HTML dla %{pkgname}
 Group:		Documentation
 Requires:	ruby >= 1:1.8.7-4
 
 %description rdoc
-Documentation files for mime-types.
-
-%description rdoc -l hu.UTF-8
-A mime-types dokumentációja.
+HTML documentation for %{pkgname}.
 
 %description rdoc -l pl.UTF-8
-Pliki dokumentacji do mime-types.
+Dokumentacja w formacie HTML dla %{pkgname}.
+
+%package ri
+Summary:	ri documentation for %{pkgname}
+Summary(pl.UTF-8):	Dokumentacja w formacie ri dla %{pkgname}
+Group:		Documentation
+Requires:	ruby
+
+%description ri
+ri documentation for %{pkgname}.
+
+%description ri -l pl.UTF-8
+Dokumentacji w formacie ri dla %{pkgname}.
 
 %prep
-%setup -q -n mime-types-%{version}
-cp %{_datadir}/setup.rb .
+%setup -q -c
+%{__tar} xf %{SOURCE0} -O data.tar.gz | %{__tar} xz
+find -newer README.txt -o -print | xargs touch --reference %{SOURCE0}
 
 %build
-ruby setup.rb config \
-	--rbdir=%{ruby_rubylibdir} \
-	--sodir=%{ruby_archdir}
-
-ruby setup.rb setup
-
 rdoc --op rdoc lib
 rdoc --ri --op ri lib
-rm -f ri/created.rid
-rm -rf ri/MIME/InvalidContentType
+rm ri/created.rid
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
 
-ruby setup.rb install \
-	--prefix=$RPM_BUILD_ROOT
-
+cp -a lib/* $RPM_BUILD_ROOT%{ruby_rubylibdir}
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 
@@ -94,7 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %files rdoc
 %defattr(644,root,root,755)
 %{ruby_rdocdir}/%{name}-%{version}
-%dir %{ruby_ridir}/MIME
-%{ruby_ridir}/MIME/*.yaml
-%{ruby_ridir}/MIME/Type
-%{ruby_ridir}/MIME/Types
+
+%files ri
+%defattr(644,root,root,755)
+%{ruby_ridir}/MIME
