@@ -4,21 +4,16 @@ Summary(hu.UTF-8):	MIME::Types Rubyhoz
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	1.16
-Release:	2
-License:	Ruby's, Artistic or GPLv2+
+Release:	3
+License:	Ruby's, Artistic or GPL v2+
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
 # Source0-md5:	2c9b8568a76cc632578a292db4a71b9a
 URL:		http://raa.ruby-lang.org/project/mime-types/
-BuildRequires:	rpmbuild(macros) >= 1.484
-BuildRequires:	ruby >= 1:1.8.6
-BuildRequires:	ruby-modules
-%{?ruby_mod_ver_requires_eq}
-#BuildArch:	noarch
+BuildRequires:	rpm-rubyprov
+BuildRequires:	rpmbuild(macros) >= 1.656
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-# nothing to be placed there. we're not noarch only because of ruby packaging
-%define		_enable_debug_packages	0
 
 %description
 MIME::Types provides the ability for detailed information about MIME
@@ -66,20 +61,18 @@ ri documentation for %{pkgname}.
 Dokumentacji w formacie ri dla %{pkgname}.
 
 %prep
-%setup -q -c
-%{__tar} xf %{SOURCE0} -O data.tar.gz | %{__tar} xz
-find -newer README.txt -o -print | xargs touch --reference %{SOURCE0}
+%setup -q -n %{pkgname}-%{version}
 
 %build
 rdoc --op rdoc lib
 rdoc --ri --op ri lib
 rm ri/created.rid
+rm ri/cache.ri
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_rubylibdir},%{ruby_ridir},%{ruby_rdocdir}}
-
-cp -a lib/* $RPM_BUILD_ROOT%{ruby_rubylibdir}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}}
+cp -a lib/* $RPM_BUILD_ROOT%{ruby_vendorlibdir}
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
 
@@ -88,9 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%dir %{ruby_rubylibdir}/mime
-%{ruby_rubylibdir}/mime/types.rb
-%{ruby_rubylibdir}/mime/types.rb.data
+%dir %{ruby_vendorlibdir}/mime
+%{ruby_vendorlibdir}/mime/types.rb
+%{ruby_vendorlibdir}/mime/types.rb.data
 
 %files rdoc
 %defattr(644,root,root,755)
