@@ -3,15 +3,18 @@ Summary:	MIME::Types for Ruby
 Summary(hu.UTF-8):	MIME::Types Rubyhoz
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-%{pkgname}
-Version:	1.16
-Release:	3
-License:	Ruby's, Artistic or GPL v2+
+Version:	1.23
+Release:	1
+License:	MIT, Artistic or GPL v2+
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
-# Source0-md5:	2c9b8568a76cc632578a292db4a71b9a
-URL:		http://raa.ruby-lang.org/project/mime-types/
+# Source0-md5:	26b9ebe2f50e7ed6348475f7c520cfaf
+URL:		http://mime-types.rubyforge.org/
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
+%if %(locale -a | grep -q '^en_US$'; echo $?)
+BuildRequires:	glibc-localedb-all
+%endif
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -19,22 +22,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 MIME::Types provides the ability for detailed information about MIME
 entities to be determined and used programmatically.
 
-This is largely based on Perl MIME::Types 1.13. Please see the main
-documentation for more information.
-
 %description -l hu.UTF-8
 MIME::Types egy felületet biztosít a MIME bejegyzések lekérdezéséhez
 és programozásához.
 
-Nagyban a Perl MIME::Types 1.13 az alapja a modulnak. A fő
-dokumentációban találsz több információt.
-
 %description -l pl.UTF-8
 MIME::Types pozwala na programowe określanie i wykorzystywanie
 szczegółowych informacji o elementach MIME.
-
-Moduł ten jest w dużej części oparty na perlowym MIME::Types 1.13.
-Więcej informacji znajduje się w głównej dokumentacji.
 
 %package rdoc
 Summary:	HTML documentation for %{pkgname}
@@ -64,6 +58,8 @@ Dokumentacji w formacie ri dla %{pkgname}.
 %setup -q -n %{pkgname}-%{version}
 
 %build
+# rdoc fails if not UTF-8 locale
+export LC_ALL=en_US.UTF-8
 rdoc --op rdoc lib
 rdoc --ri --op ri lib
 rm ri/created.rid
@@ -82,8 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %dir %{ruby_vendorlibdir}/mime
+%{ruby_vendorlibdir}/mime-types.rb
 %{ruby_vendorlibdir}/mime/types.rb
-%{ruby_vendorlibdir}/mime/types.rb.data
+%{ruby_vendorlibdir}/mime/types
 
 %files rdoc
 %defattr(644,root,root,755)
