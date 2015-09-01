@@ -4,7 +4,7 @@ Summary(hu.UTF-8):	MIME::Types Rubyhoz
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	1.23
-Release:	4
+Release:	5
 License:	MIT, Artistic or GPL v2+
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
