@@ -3,18 +3,20 @@ Summary:	MIME::Types for Ruby
 Summary(hu.UTF-8):	MIME::Types Rubyhoz
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-%{pkgname}
-Version:	1.23
-Release:	5
-License:	MIT, Artistic or GPL v2+
+Version:	3.7.0
+Release:	1
+License:	MIT
 Group:		Development/Languages
-Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
-# Source0-md5:	26b9ebe2f50e7ed6348475f7c520cfaf
-URL:		http://mime-types.rubyforge.org/
+Source0:	https://rubygems.org/downloads/%{pkgname}-%{version}.gem
+# Source0-md5:	0c46cdaea5780d783cd5059f3f0ebf14
+URL:		https://github.com/mime-types/ruby-mime-types
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.665
 %if %(locale -a | grep -q '^en_US$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
+Requires:	ruby-logger
+Requires:	ruby-mime-types-data >= 3.2025
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -69,13 +71,11 @@ rm ri/cache.ri
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir}}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_ridir},%{ruby_rdocdir},%{ruby_specdir}}
 
 cp -a lib/* $RPM_BUILD_ROOT%{ruby_vendorlibdir}
 cp -a ri/* $RPM_BUILD_ROOT%{ruby_ridir}
 cp -a rdoc $RPM_BUILD_ROOT%{ruby_rdocdir}/%{name}-%{version}
-
-install -d $RPM_BUILD_ROOT%{ruby_specdir}
 cp -p %{pkgname}-%{version}.gemspec $RPM_BUILD_ROOT%{ruby_specdir}
 
 %clean
@@ -83,10 +83,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README.rdoc History.rdoc Licence.rdoc
-%dir %{ruby_vendorlibdir}/mime
+%doc README.md CHANGELOG.md
 %{ruby_vendorlibdir}/mime-types.rb
+%{ruby_vendorlibdir}/mime/type.rb
 %{ruby_vendorlibdir}/mime/types.rb
+%{ruby_vendorlibdir}/mime/type
 %{ruby_vendorlibdir}/mime/types
 %{ruby_specdir}/%{pkgname}-%{version}.gemspec
 
