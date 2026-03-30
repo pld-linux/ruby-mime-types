@@ -4,7 +4,7 @@ Summary(hu.UTF-8):	MIME::Types Rubyhoz
 Summary(pl.UTF-8):	MIME::Types dla języka Ruby
 Name:		ruby-%{pkgname}
 Version:	3.7.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Languages
 Source0:	https://rubygems.org/downloads/%{pkgname}-%{version}.gem
